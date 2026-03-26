@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Stopwatch</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            margin-top: 50px;
+        }
+
+        #time {
+            font-size: 35px;
+            margin: 20px;
+        }
+
+        button {
+            padding: 8px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Stopwatch</h2>
+
+    <div id="time">0:0:0</div>
+
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+    <button onclick="lapTime()">Lap</button>
+
+    <div id="lapList"></div>
+
+    <script>
+        var sec = 0;
+        var min = 0;
+        var hr = 0;
+        var timer;
+
+        function startTimer() {
+            timer = setInterval(runTime, 1000);
+        }
+
+        function runTime() {
+            sec++;
+
+            if (sec == 60) {
+                sec = 0;
+                min++;
+            }
+
+            if (min == 60) {
+                min = 0;
+                hr++;
+            }
+
+            document.getElementById("time").innerHTML = hr + ":" + min + ":" + sec;
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            sec = 0;
+            min = 0;
+            hr = 0;
+            document.getElementById("time").innerHTML = "0:0:0";
+            document.getElementById("lapList").innerHTML = "";
+        }
+
+        function lapTime() {
+            var lap = document.createElement("p");
+            lap.innerHTML = document.getElementById("time").innerHTML;
+            document.getElementById("lapList").appendChild(lap);
+        }
+    </script>
+
+</body>
+</html>
